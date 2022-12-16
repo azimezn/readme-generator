@@ -1,64 +1,49 @@
 let badgeLink;
+let licenseLink;
 
 // TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {
-  if (license == "MIT") {
-    badgeLink = "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
-  } else if (license == "APACHE 2.0") {
-    badgeLink = "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
-  } else if (license == "GPL 3.0") {
-    badgeLink = "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)"
-  } else if (license == "BSD 3") {
-    badgeLink = "[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)"
+function renderLicenseBadge(hello) {
+  if (hello.license == "MIT") {
+    badgeLink = `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
+  } else if (hello.license == "APACHE 2.0") {
+    badgeLink = `[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`
+  } else if (hello.license == "GPL 3.0") {
+    badgeLink = `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`
+  } else if (hello.license == "BSD 3") {
+    badgeLink = `[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)`
   } else {
-    badgeLink = ""
+    badgeLink = "N/A"
+    return
   }
   return badgeLink
 }
 
 // TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {
-  if (license == "MIT") {
-
-  } else if (license == "APACHE 2.0") {
-
-  } else if (license == "GPL 3.0") {
-
-  } else if (license == "BSD 3") {
-
+function renderLicenseLink(hello) {
+  if (hello.license == "MIT") {
+    licenseLink = "https://www.mit.edu/~amini/LICENSE.md"
+  } else if (hello.license == "APACHE 2.0") {
+    licenseLink = "https://www.apache.org/licenses/LICENSE-2.0"
+  } else if (hello.license == "GPL 3.0") {
+    licenseLink = "https://www.gnu.org/licenses/gpl-3.0.en.html"
+  } else if (hello.license == "BSD 3") {
+    licenseLink = "https://en.wikipedia.org/wiki/BSD_licenses"
   } else {
-
+    return
   }
-  return 
-}
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {
-  if (license == "MIT") {
-
-  } else if (license == "APACHE 2.0") {
-
-  } else if (license == "GPL 3.0") {
-
-  } else if (license == "BSD 3") {
-
-  } else {
-
-  }
-  return 
+  return licenseLink
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
 
-  renderLicenseBadge(data.license);
+  renderLicenseBadge(data);
+  renderLicenseLink(data);
 
-  ` ${badgeLink}
+  const readmeInfo =
+    ` ${badgeLink}
   
-  # ${data.title} //<Your-Project-Title>
+  # ${data.title}
 
   ## Description
   
@@ -66,13 +51,13 @@ function generateMarkdown(data) {
   
   ## Table of Contents
   
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Credits](#credits)
-  - [License](#license)
-  - [How to Contribute](#how-to-contribute)
-  - [Test](#tests)
-  - [Contact](#contact)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Credits](#credits)
+  * [License](#license)
+  * [How to Contribute](#how-to-contribute)
+  * [Test](#tests)
+  * [Questions](#questions)
   
   ## Installation
   
@@ -84,11 +69,12 @@ function generateMarkdown(data) {
   
   ## Credits
   
-  //${data.credits}
+  ${data.credits}
   
   ## License
   
-  ${data.license} // [https://choosealicense.com/](https://choosealicense.com/).
+  ${data.license}
+  ${licenseLink}
   
   ## How to Contribute
   
@@ -96,18 +82,13 @@ function generateMarkdown(data) {
   
   ## Tests
   
-  ${data.test} //Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+  For a test run, use the "${data.test}" command to run a test.
 
-  ## Contact
+  ## Questions
 
-  //fix it and add links?
-  ${data.username}
-  ${data.email}`
+  You can look at my GitHub profile (https://github.com/${data.username}) or email me at ${data.email}.`
 
-  //?????
-  return `# ${data.title}
-
-`;
+  return readmeInfo;
 }
 
 module.exports = generateMarkdown;

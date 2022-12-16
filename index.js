@@ -1,5 +1,4 @@
 // TODO: Include packages needed for this application
-// 'fs', 'path', 'inquirer', './utils/generateMarkdown'
 const inquirer = require("inquirer");
 const fs = require("fs");
 const generateMarkdown = require("./utils/generateMarkdown");
@@ -23,65 +22,54 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'Give a description for your project.',
+        message: 'Provide a short description explaining the what, why, and how of your project.',
         name: 'description',
     },
     {
         type: 'input',
-        message: 'What are the installation instructions?',
+        message: 'What are the steps required to install your project?',
         name: 'installation',
     },
     {
         type: 'input',
-        message: 'usage information',
+        message: 'Provide instructions for use.',
         name: 'usage',
     },
     {
         type: 'input',
-        message: 'contributing',
+        message: 'List your collaborators, if any.',
+        name: 'credits',
+    },
+    {
+        type: 'input',
+        message: 'How can other developers contribute to your project?',
         name: 'contribute',
     },
     {
         type: 'input',
-        message: 'how to run test',
+        message: 'How can we run a test?',
         name: 'test',
+        default: "npm run test"
     },
     {
-        type: 'checkbox',
-        message: 'license',
+        type: 'list',
+        message: 'Which type of license would you like?',
         name: 'license',
         choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'none'],
     },
 ];
 
 // TODO: Create a function to write README file
-// Function to write README file using the user input
-function writeToFile(fileName, data) { }
-
-// fs write function to create the README.md file
-// path package can be used to create the file path
-
 // TODO: Create a function to initialize app
 function init() {
-
-    // call inquirer prompt method for questions
-    // inside .then callback
-    // call generateMarkdown passing answer object as input argument
-    // call writeFile passing file name and the returned value from generateMarkdown function as input arguments
-
-
-
-    const inquirer = require('inquirer');
-    const fs = require('fs');
 
     inquirer
         .prompt(questions)
         .then((data) => {
-            fs.writeFile(README.md, JSON.stringify(generateMarkdown), (err) =>
+            fs.writeFileSync("README.md", generateMarkdown({ ...data }), (err) =>
                 err ? console.log(err) : console.log('Success!')
             );
         });
-
 
 }
 
